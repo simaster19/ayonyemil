@@ -90,16 +90,16 @@ class Authentication extends Controller
 
             event(new Registered($user));
 
-            $accessToken = $user->createToken('authToken')->plainTextToken;
+            // $accessToken = $user->createToken('authToken')->plainTextToken;
 
             return response()->json([
                 'status' => 200,
                 'message' => 'Succesfully Registered, Cek email untuk verifikasi!',
                 'data' => $user,
-                'auth' => [
-                    'token' => $accessToken,
-                    'type' => 'Bearer'
-                ]
+                // 'auth' => [
+                //     'token' => $accessToken,
+                //     'type' => 'Bearer'
+                // ]
             ], 200);
         } else {
 
@@ -114,21 +114,21 @@ class Authentication extends Controller
                 'no_hp' => $request->no_hp,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
-
+                'role' => $request->role
             ]);
 
             event(new Registered($user));
 
-            $accessToken = $user->createToken('authToken')->plainTextToken;
+            // $accessToken = $user->createToken('authToken')->plainTextToken;
 
             return response()->json([
                 'status' => 200,
                 'message' => 'Succesfully Registered, Cek email untuk verifikasi!',
                 'data' => $user,
-                'auth' => [
-                    'token' => $accessToken,
-                    'type' => 'Bearer'
-                ]
+                // 'auth' => [
+                //     'token' => $accessToken,
+                //     'type' => 'Bearer'
+                // ]
             ], 200);
         }
     }

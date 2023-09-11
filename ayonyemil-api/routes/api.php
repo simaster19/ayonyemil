@@ -19,6 +19,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/search', [HomeController::class, 'searchProduk'])->name('search');
 
 //Route Login
 Route::post('/login', [Authentication::class, 'login']);
@@ -33,8 +34,9 @@ Route::get('email/verify', [Authentication::class, 'notice'])->name('verificatio
 
 
 
-Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->group(function () {
+Route::middleware(['auth:sanctum', 'isAdmin', 'verified'])->prefix('admin')->group(function () {
     //Product
+    Route::get('/product', [ProdukController::class, 'index'])->name('all_product');
     Route::post('/product', [ProdukController::class, 'store'])->name('simpan_produk');
     Route::match(['POST', 'PUT'], '/product/{id}', [ProdukController::class, 'update'])->name('update_produk');
     Route::delete('/product/{id}', [ProdukController::class, 'destroy'])->name('delete_produk');

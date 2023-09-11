@@ -2,19 +2,32 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProdukController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth:sanctum']);
-    // }
+    public function index()
+    {
+        $key = 'all_products';
+
+        $products = Cache::remember($key, now()->addHours(1), function () {
+            return Product::all();
+        });
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'successfully',
+            'data' => $products
+        ], 200);
+    }
+
+
     public function store(Request $request)
     {
         $validators = Validator::make($request->all(), [

@@ -21,7 +21,10 @@ class DatabaseSeeder extends Seeder
             'username' => 'simaster19',
             'alamat' => 'Kaliwungu',
             'no_hp' => '089635032061',
+            'role' => 'admin',
             'password' => Hash::make('simaster123')
         ]);
+
+        \App\Models\Product::factory(1500)->create();
     }
 }
