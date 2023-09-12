@@ -21,6 +21,7 @@ class ProductFactory extends Factory
             'nama_produk' => "Produk-" . fake()->numberBetween(1, 500),
             'jenis_produk' => 'SNACK',
             'foto_produk' => Str::random(30),
+            'rasa' => 'Pedas',
             'jumlah_produk' => fake()->numberBetween(100, 300),
             'harga_produk' => fake()->numberBetween(1000, 5000),
             'harga_jual' => fake()->numberBetween(5500, 7000),

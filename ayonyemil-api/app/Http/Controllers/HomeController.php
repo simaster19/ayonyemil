@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -17,6 +18,18 @@ class HomeController extends Controller
             'status' => 200,
             'message' => 'successfully',
             'data' => $products
+        ], 200);
+    }
+
+    public function testimonial(Request $request)
+    {
+
+        $testimonial = Testimonial::all();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'successfully',
+            'data' => $testimonial
         ], 200);
     }
 

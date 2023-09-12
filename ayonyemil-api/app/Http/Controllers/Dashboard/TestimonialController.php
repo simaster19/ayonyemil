@@ -22,10 +22,10 @@ class TestimonialController extends Controller
 
         if ($validators->fails()) {
             return response()->json([
-                'status' => 422,
+                'status' => 401,
                 'message' => 'Pesan Error',
                 'data' => $validators->errors()
-            ], 422);
+            ], 401);
         }
 
         if (!$request->has('foto_customer')) {
@@ -70,10 +70,10 @@ class TestimonialController extends Controller
 
         if ($validators->fails()) {
             return response()->json([
-                'status' => 422,
+                'status' => 401,
                 'message' => 'Pesan Error',
                 'data' => $validators->errors()
-            ], 422);
+            ], 401);
         }
 
 

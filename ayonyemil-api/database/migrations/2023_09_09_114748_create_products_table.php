@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_produk');
             $table->string('jenis_produk');
+            $table->string('rasa');
             $table->text('foto_produk')->nullable();
             $table->integer('jumlah_produk');
             $table->integer('harga_produk');

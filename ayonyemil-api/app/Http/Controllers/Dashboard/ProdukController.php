@@ -65,6 +65,7 @@ class ProdukController extends Controller
                 'nama_produk' => $request->nama_produk,
                 'jenis_produk' => $request->jenis_produk,
                 'foto_produk' => $foto_produk->hashName(),
+                'rasa' => $request->rasa,
                 'jumlah_produk' => $request->jumlah_produk,
                 'harga_produk' => $request->harga_produk,
                 'harga_jual' => $request->harga_jual,
@@ -124,6 +125,7 @@ class ProdukController extends Controller
                 'jenis_produk' => $request->jenis_produk,
                 'foto_produk' => $foto_produk->hashName(),
                 'jumlah_produk' => $request->jumlah_produk,
+                'rasa' => $request->rasa,
                 'harga_produk' => $request->harga_produk,
                 'harga_jual' => $request->harga_jual,
                 'berat_produk' => $request->berat_produk

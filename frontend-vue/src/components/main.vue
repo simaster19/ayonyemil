@@ -1,3 +1,39 @@
+<script setup>
+
+import api from '../api';
+import { ref, onMounted } from 'vue';
+
+
+let products = ref([]);
+let testimonial = ref([]);
+
+
+let fetchDataProducts = async ()=> {
+  await api.get('/api').then(response => {
+    products.value = response.data.data.data
+  });
+}
+
+let fetchDataCustomers = async ()=> {
+  await api.get('/api/testimonial').then(response => {
+    testimonial.value = response.data.data;
+    console.log(response.data.data);
+  });
+}
+
+onMounted(async () => {
+  const [products,testimonial] = await Promise.all([
+
+    fetchDataCustomers(),
+    fetchDataProducts()
+  ]);
+
+  return {products,testimonial}
+ 
+});
+
+
+</script>
 <template>
     <div class="container-xxl py-5 bg-dark hero-header mb-5" id="home">
         <div class="container my-5 py-5">
@@ -11,7 +47,7 @@
                 perutnya keroncongan!
               </p>
               <a
-                href=""
+                href="https://api.whatsapp.com/send/?phone=6289635032061&text=Hallo%20Ayo%20Nyemil%0A%0ASaya%20ingin%20memesan"
                 class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft"
                 >Beli Sekarang!</a
               >
@@ -81,78 +117,26 @@
         <h1 class="mb-5">Cemilan Kekinian</h1>
       </div>
       <div class="row g-4">
-        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div v-for="(product, index) in products" :key="index" class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
           <div class="team-item text-center rounded overflow-hidden">
             <div class="rounded-circle overflow-hidden m-4">
               <img
                 class="img-fluid"
-                src="../assets/frontend/img/hero.png"
+                :src="product.foto_produk"
                 alt=""
               />
             </div>
-            <h5 class="mb-0">Mie</h5>
+            <h5 class="mb-0">{{ product.nama_produk }}</h5>
             <small>Pedas</small>
+            <h5 class="mb-0">Rp. {{ product.harga_produk }}</h5>
             <div class="d-flex justify-content-center mt-3">
-              <a class="btn btn-square btn-primary mx-1" href=""
+              <a class="btn btn-square btn-primary mx-1" :href='"https://api.whatsapp.com/send/?phone=6289635032061&text=Hallo%20Ayo%20Nyemil%0A%0ASaya%20ingin%20memesan%20" + product.nama_produk'
                 ><i class="bi bi-cart-plus-fill"></i
               ></a>
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-          <div class="team-item text-center rounded overflow-hidden">
-            <div class="rounded-circle overflow-hidden m-4">
-              <img
-                class="img-fluid"
-                src="../assets/frontend/img/hero.png"
-                alt=""
-              />
-            </div>
-            <h5 class="mb-0">Mie</h5>
-            <small>Pedas</small>
-            <div class="d-flex justify-content-center mt-3">
-              <a class="btn btn-square btn-primary mx-1" href=""
-                ><i class="bi bi-cart-plus-fill"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-          <div class="team-item text-center rounded overflow-hidden">
-            <div class="rounded-circle overflow-hidden m-4">
-              <img
-                class="img-fluid"
-                src="../assets/frontend/img/hero.png"
-                alt=""
-              />
-            </div>
-            <h5 class="mb-0">Mie</h5>
-            <small>Pedas</small>
-            <div class="d-flex justify-content-center mt-3">
-              <a class="btn btn-square btn-primary mx-1" href=""
-                ><i class="bi bi-cart-plus-fill"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="1s">
-          <div class="team-item text-center rounded overflow-hidden">
-            <div class="rounded-circle overflow-hidden m-4">
-              <img
-                class="img-fluid"
-                src="../assets/frontend/img/hero.png"
-                alt=""
-              />
-            </div>
-            <h5 class="mb-0">Mie</h5>
-            <small>Pedas</small>
-            <div class="d-flex justify-content-center mt-3">
-              <a class="btn btn-square btn-primary mx-1" href=""
-                ><i class="bi bi-cart-plus-fill"></i
-              ></a>
-            </div>
-          </div>
-        </div>
+    
       </div>
     </div>
   </div>
@@ -525,97 +509,26 @@
             data-mdb-ride="carousel"
           >
             <div class="carousel-inner">
-              <div class="carousel-item active" data-bs-interval="10000">
+              <div v-for="(testimoni, index) in testimonial" :key="index" class="carousel-item" data-bs-interval="10000">
                 <img
                   class="rounded-circle shadow-1-strong mb-4"
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+                  src=""
                   alt="avatar"
                   style="width: 150px"
                 />
                 <div class="row d-flex justify-content-center">
                   <div class="col-lg-8">
-                    <h5 class="mb-3">Maria Kate</h5>
-                    <p>Photographer</p>
+                    <h5 class="mb-3">{{ testimoni.nama_customer }}</h5>
+                    <p>IG: {{testimoni.instagram }}</p>
                     <p class="text-muted">
                       <i class="fas fa-quote-left pe-2"></i>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Minus et deleniti nesciunt sint eligendi reprehenderit
-                      reiciendis, quibusdam illo, beatae quia fugit consequatur
-                      laudantium velit magnam error. Consectetur distinctio fugit
-                      doloremque.
+                      {{ testimoni.catatan }}
                     </p>
                   </div>
                 </div>
-                <ul
-                  class="list-unstyled d-flex justify-content-center text-warning mb-0"
-                >
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="far fa-star fa-sm"></i></li>
-                </ul>
+      
               </div>
-              <div class="carousel-item" data-bs-interval="2000">
-                <img
-                  class="rounded-circle shadow-1-strong mb-4"
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
-                  alt="avatar"
-                  style="width: 150px"
-                />
-                <div class="row d-flex justify-content-center">
-                  <div class="col-lg-8">
-                    <h5 class="mb-3">John Doe</h5>
-                    <p>Web Developer</p>
-                    <p class="text-muted">
-                      <i class="fas fa-quote-left pe-2"></i>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Minus et deleniti nesciunt sint eligendi reprehenderit
-                      reiciendis.
-                    </p>
-                  </div>
-                </div>
-                <ul
-                  class="list-unstyled d-flex justify-content-center text-warning mb-0"
-                >
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="far fa-star fa-sm"></i></li>
-                </ul>
-              </div>
-              <div class="carousel-item">
-                <img
-                  class="rounded-circle shadow-1-strong mb-4"
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
-                  alt="avatar"
-                  style="width: 150px"
-                />
-                <div class="row d-flex justify-content-center">
-                  <div class="col-lg-8">
-                    <h5 class="mb-3">Anna Deynah</h5>
-                    <p>UX Designer</p>
-                    <p class="text-muted">
-                      <i class="fas fa-quote-left pe-2"></i>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Minus et deleniti nesciunt sint eligendi reprehenderit
-                      reiciendis, quibusdam illo, beatae quia fugit consequatur
-                      laudantium velit magnam error. Consectetur distinctio fugit
-                      doloremque.
-                    </p>
-                  </div>
-                </div>
-                <ul
-                  class="list-unstyled d-flex justify-content-center text-warning mb-0"
-                >
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="fas fa-star fa-sm"></i></li>
-                  <li><i class="far fa-star fa-sm"></i></li>
-                </ul>
-              </div>
+             
             </div>
             <button
               class="carousel-control-prev"

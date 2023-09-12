@@ -1,5 +1,7 @@
 <script setup>
     import heroVue from '../components/hero.vue';
+
+  
 </script>
 <template>
     <!-- Navbar & Hero Start -->
@@ -96,3 +98,19 @@
       </div>
       <!-- Contact End -->
 </template>
+
+<script>
+import { createApp } from 'vue';
+
+createApp({
+  data(){
+    return{
+      title:"Contact"
+    }
+  },
+  mounted(){
+    document.title = this.title
+  }
+})
+
+</script>

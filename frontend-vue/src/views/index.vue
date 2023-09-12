@@ -1,6 +1,10 @@
 
 <script setup>
+
 import mainVue from '../components/main.vue';
+
+
+
 </script>
 <template>
   <div class="container-xxl bg-white p-0">

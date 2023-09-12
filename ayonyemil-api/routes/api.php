@@ -19,6 +19,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/testimonial', [HomeController::class, 'testimonial']);
 Route::get('/search', [HomeController::class, 'searchProduk'])->name('search');
 
 //Route Login
