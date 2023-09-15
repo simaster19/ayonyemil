@@ -33,8 +33,6 @@ Route::get('email/verify', [Authentication::class, 'notice'])->name('verificatio
 // Route::get('email/resend', [Authentication::class, 'resend'])->name('verification.resend');
 
 
-
-
 Route::middleware(['auth:sanctum', 'isAdmin', 'verified'])->prefix('admin')->group(function () {
     //Product
     Route::get('/product', [ProdukController::class, 'index'])->name('all_product');
