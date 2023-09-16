@@ -20,11 +20,9 @@ class ProdukController extends Controller
             return Product::all();
         });
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'successfully',
-            'data' => $products
-        ], 200);
+        return view('Admin.Dashboard.dashboard')->with([
+            'datas' => $products
+        ]);
     }
 
 

@@ -5,20 +5,16 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class Authentication extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['verified']);
-    // }
-    
-    public function index(){
-      return view('Admin.login');
+
+    public function index()
+    {
+        return view('Admin.login');
     }
 
     public function login(Request $request)
@@ -30,44 +26,32 @@ class Authentication extends Controller
         ]);
 
         if ($validations->fails()) {
-            return response()->json([
-                'status' => 402,
-                'message' => 'username / password salah!',
-                'data' => null
-            ], 402);
+
+            return back()->with(['error_message' => $validations->messages()]);
         }
 
 
         $userLogin = User::where('username', '=', $request->username, 'AND', 'password', '=', $request->password)->get()->first();
         if (!$userLogin || !Hash::check($request->password, $userLogin->password)) {
-            return response()->json([
-                'status' => 402,
-                'message' => 'username / password salah!',
-                'data' => null
-            ], 402);
+            return back()->with([
+                'message' => 'Username / Password Salah!'
+            ]);
         }
 
         if ($userLogin->email_verified_at == NULL) {
             $userLogin->sendEmailVerificationNotification();
 
-            return response()->json([
-                'status' => 401,
-                'message' => 'Silahkan verifikasi terlebih dahulu, Email verifikasi sudah dikirim'
-            ], 401);
+            return back()->with([
+                'message' => 'Silahkan verifikasi terlebih dahulu, Email verifikasi sudah dikirim!'
+            ]);
         }
 
-        // $token = $userLogin->createToken('bearer')->plainTextToken;
-        $token = $userLogin->createToken('user_login')->plainTextToken;
-        return response()->json([
-            'status' => 200,
-            'message' => 'Success Login!',
-            'data' => NULL,
-            'Auth' => [
-                'token' => $token,
-                'type' => 'bearer'
-            ],
-        ], 200);
-    }
+        $request->session()->regenerate();
 
-    
+        if (Auth::user()->role == 'admin') {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('home');
+        }
+    }
 }
