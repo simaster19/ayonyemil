@@ -14,13 +14,13 @@ class ProdukController extends Controller
 
     public function index()
     {
-        $key = 'all_products';
 
-        $products = Cache::remember($key, now()->addHours(1), function () {
-            return Product::all();
-        });
 
-        return view('Admin.Dashboard.dashboard')->with([
+
+        $products = Product::orderBy('created_at', 'desc')->get();
+
+
+        return view('Admin.Dashboard.Product.index')->with([
             'datas' => $products
         ]);
     }
@@ -33,6 +33,7 @@ class ProdukController extends Controller
             'jenis_produk' => 'required',
             'jumlah_produk' => 'required|numeric',
             'harga_produk' => 'required|numeric',
+            'rasa' => 'required',
             'harga_jual' => 'required|numeric',
             'berat_produk' => 'required',
             'foto_produk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -40,20 +41,14 @@ class ProdukController extends Controller
 
 
         if ($validators->fails()) {
-            return response()->json([
-                'status' => 402,
-                'message' => 'Pesan Error',
-                'data' => $validators
-            ], 402);
+            return back()->with(['error_message' => $validators->messages()]);
         }
 
         if (!$request->has('foto_produk')) {
             $product = Product::create($request->all());
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $product
-            ], 200);
+            return redirect()->route('all_product')->with([
+                'message' => 'Data Berhasil Ditambahkan!'
+            ]);
         } else {
 
             $foto_produk = $request->file('foto_produk');
@@ -70,11 +65,9 @@ class ProdukController extends Controller
                 'berat_produk' => $request->berat_produk
 
             ]);
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $product
-            ], 200);
+            return redirect()->route('all_product')->with([
+                'message' => 'Data Berhasil Ditambahkan!'
+            ]);
         }
     }
 

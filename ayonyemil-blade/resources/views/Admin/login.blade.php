@@ -88,14 +88,14 @@
                                         <div class="form-floating">
                                             <input type="text" class="form-control" id="username" name="username"
                                                 placeholder="Username / Email">
-                                            <label for="name">Username</label>
+                                            <label for="username">Username</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
                                             <input type="password" class="form-control" id="password" name="password"
-                                                placeholder="Your Email">
-                                            <label for="email">Password</label>
+                                                placeholder="Password">
+                                            <label for="password">Password</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">

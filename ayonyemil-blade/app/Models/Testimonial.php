@@ -12,10 +12,10 @@ class Testimonial extends Model
 
     protected $guarded = ['id'];
 
-    protected function fotoCustomer(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($fotoCustomer) => asset('/storage/images/customer/' . $fotoCustomer)
-        );
-    }
+    // protected function fotoCustomer(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($fotoCustomer) => asset('/storage/images/customer/' . $fotoCustomer)
+    //     );
+    // }
 }

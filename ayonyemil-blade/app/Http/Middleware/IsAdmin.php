@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class IsAdmin
 {
@@ -19,14 +21,7 @@ class IsAdmin
     {
         if (Auth::user()->role !== 'admin') {
 
-            return response()->json([
-                'status' => 401,
-                'message' => 'User Not Authorization',
-                'data' => [
-                    'ip' => Log::info($request->ip()),
-                    'url' => Log::info($request->fullUrl())
-                ]
-            ], 401);
+            return redirect()->route('home');
         }
         return $next($request);
     }

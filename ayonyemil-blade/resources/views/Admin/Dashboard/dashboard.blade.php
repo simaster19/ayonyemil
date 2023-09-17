@@ -1,4 +1,10 @@
 @extends('Admin.Dashboard.index')
+@section('title', 'Dashboard')
 @section('content')
-    dashboard
+    Dashboard
 @endsection
+@push('script')
+    <script>
+        $('#tableDataTable').DataTable();
+    </script>
+@endpush

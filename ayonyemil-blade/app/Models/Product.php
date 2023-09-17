@@ -13,10 +13,10 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
-    protected function fotoProduk(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($fotoProduk) => asset('/storage/images/product/' . $fotoProduk)
-        );
-    }
+    // protected function fotoProduk(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($fotoProduk) => asset('/storage/images/product/' . $fotoProduk)
+    //     );
+    // }
 }

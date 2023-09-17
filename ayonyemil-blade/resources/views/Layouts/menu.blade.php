@@ -8,8 +8,8 @@
 </button>
 <div class="collapse navbar-collapse" id="navbarCollapse">
     <div class="navbar-nav ms-auto py-0 pe-4">
-        <a href="#" class="nav-item nav-link">Dashboard</a>
-        <a href="#" class="nav-item nav-link">Product</a>
+        <a href="{{ route('dashboard') }}" class="nav-item nav-link">Dashboard</a>
+        <a href="{{ route('all_product') }}" class="nav-item nav-link">Product</a>
         <a href="#" class="nav-item nav-link">Testimonial</a>
         <a href="#contact" class="nav-item nav-link">Contact</a>
     </div>

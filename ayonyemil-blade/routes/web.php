@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Authentication;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProdukController;
 use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\HomeController;
@@ -34,12 +35,12 @@ Route::post('/register', [
   'register'
 ])->name('prosses_register');
 
-Route::get('email/verify/{id}', [Authentication::class, 'verify'])->name('verification.verify');
-Route::get('email/verify', [Authentication::class, 'notice'])->name('verification.notice');
+Route::get('email/verify/{id}', [RegisterController::class, 'verify'])->name('verification.verify');
+Route::get('email/verify', [RegisterController::class, 'notice'])->name('verification.notice');
 // Route::get('email/resend', [Authentication::class, 'resend'])->name('verification.resend');
 
-Route::get('admin', [ProdukController::class, 'index'])->name('dashboard');
 Route::middleware(['auth', 'isAdmin', 'verified'])->prefix('admin')->group(function () {
+  Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
   //Dashboard
 
 
