@@ -10,8 +10,8 @@
     <div class="navbar-nav ms-auto py-0 pe-4">
         <a href="{{ route('dashboard') }}" class="nav-item nav-link">Dashboard</a>
         <a href="{{ route('all_product') }}" class="nav-item nav-link">Product</a>
-        <a href="#" class="nav-item nav-link">Testimonial</a>
-        <a href="#contact" class="nav-item nav-link">Contact</a>
+        <a href="{{ route('all_testimonial') }}" class="nav-item nav-link">Testimonial</a>
+
     </div>
-    <a href="" class="btn btn-primary py-2 px-4">Logout</a>
+    <a href="{{ route('logout') }}" class="btn btn-primary py-2 px-4">Logout</a>
 </div>

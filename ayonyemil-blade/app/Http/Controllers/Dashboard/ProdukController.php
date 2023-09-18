@@ -87,11 +87,7 @@ class ProdukController extends Controller
 
 
         if ($validators->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Pesan Error',
-                'data' => $validators->errors()
-            ], 422);
+            return back()->with(['error_message' => $validators->messages()]);
         }
 
 
@@ -99,11 +95,9 @@ class ProdukController extends Controller
 
         if (!$request->has('foto_produk')) {
             $product->update($request->all());
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $product
-            ], 200);
+            return redirect()->route('all_product')->with([
+                'message' => 'Data Berhasil DiUpdate'
+            ]);
         } else {
 
             $foto_produk = $request->file('foto_produk');
@@ -122,11 +116,9 @@ class ProdukController extends Controller
                 'berat_produk' => $request->berat_produk
 
             ]);
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $product
-            ], 200);
+            return redirect()->route('all_product')->with([
+                'message' => 'Data Berhasil DiUpdate!'
+            ]);
         }
     }
 
@@ -134,11 +126,9 @@ class ProdukController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Succesfully',
-            'data' => $product
-        ], 200);
+        return [
+            'datas' => $product
+        ];
     }
 
     public function destroy($id)
@@ -149,10 +139,8 @@ class ProdukController extends Controller
 
         $product->delete();
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Data Berhasil Dhapus',
-            'data' => NULL
-        ], 200);
+        return redirect()->route('all_product')->with([
+            'message' => 'Data Berhasil Dihapus!'
+        ]);
     }
 }

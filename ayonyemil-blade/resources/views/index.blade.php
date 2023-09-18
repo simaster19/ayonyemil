@@ -31,7 +31,8 @@
                         <a href="#testimonial" class="nav-item nav-link">Testimonial</a>
                         <a href="#contact" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Beli Sekarang!</a>
+                    <a href="https://api.whatsapp.com/send/?phone=6289635032061&text=Hallo%20Ayo%20Nyemil%0A%0ASaya%20ingin%20memesan"
+                        class="btn btn-primary py-2 px-4">Beli Sekarang!</a>
                 </div>
             </nav>
 
@@ -43,7 +44,8 @@
                             <p class="text-white animated slideInLeft mb-4 pb-2">
                                 Aneka cemilan dan jajanan masa kini, cocok untuk kalian yang perutnya keroncongan!
                             </p>
-                            <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Beli
+                            <a href="https://api.whatsapp.com/send/?phone=6289635032061&text=Hallo%20Ayo%20Nyemil%0A%0ASaya%20ingin%20memesan"
+                                class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Beli
                                 Sekarang!</a>
                         </div>
                         <div class="col-lg-6 text-center text-lg-end overflow-hidden">
@@ -115,11 +117,13 @@
                                 <h5 class="mb-0">{{ $product->nama_produk }}</h5>
                                 <small>{{ $product->rasa }}</small>
                                 <div class="d-flex justify-content-center mt-3">
-                                    <a class="btn btn-square btn-primary mx-1" href=""><i
+                                    <a class="btn btn-square btn-primary mx-1"
+                                        href="https://api.whatsapp.com/send/?phone=6289635032061&text=Hallo%20Ayo%20Nyemil%0A%0ASaya%20ingin%20memesan"><i
                                             class="bi bi-cart-plus-fill"></i></a>
-                                    <a class="btn btn-square btn-primary mx-1" href=""><i
-                                            class="bi-instagram"></i></a>
-                                    <a class="btn btn-square btn-primary mx-1" href=""><i
+                                    <a class="btn btn-square btn-primary mx-1"
+                                        href="https://instagram.com/ayonyemil23"><i class="bi-instagram"></i></a>
+                                    <a class="btn btn-square btn-primary mx-1"
+                                        href="https://api.whatsapp.com/send/?phone=6289635032061&text=Hallo%20Ayo%20Nyemil%0A%0ASaya%20ingin%20memesan"><i
                                             class="bi
                 bi-whatsapp"></i></a>
 
@@ -493,7 +497,8 @@
                                 {{ $testimonial->catatan }}
                             </p>
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-1.jpg"
+                                <img class="img-fluid flex-shrink-0 rounded-circle"
+                                    src="{{ Storage::url('images/customer/' . $testimonial->foto_customer) }}"
                                     style="width: 50px; height: 50px;">
                                 <div class="ps-3">
                                     <h5 class="mb-1">{{ $testimonial->nama_customer }}</h5>
@@ -554,7 +559,8 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Kirim Pesan</button>
+                                        <button onclick="alert('Under Maintenance')"
+                                            class="btn btn-primary w-100 py-3" type="submit">Kirim Pesan</button>
                                     </div>
                                 </div>
                             </form>

@@ -26,12 +26,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="#home" class="nav-item nav-link">Home</a>
-                        <a href="#menu" class="nav-item nav-link">Menu</a>
-                        <a href="#testimonial" class="nav-item nav-link">Testimonial</a>
-                        <a href="#contact" class="nav-item nav-link">Contact</a>
+                        <a href="{{ route('home') }}#home" class="nav-item nav-link">Home</a>
+                        <a href="{{ route('home') }}#menu" class="nav-item nav-link">Menu</a>
+                        <a href="{{ route('home') }}#testimonial" class="nav-item nav-link">Testimonial</a>
+                        <a href="{{ route('home') }}#contact" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Beli Sekarang!</a>
+                    <a href="https://api.whatsapp.com/send/?phone=6289635032061&text=Hallo%20Ayo%20Nyemil%0A%0ASaya%20ingin%20memesan"
+                        class="btn btn-primary py-2 px-4">Beli Sekarang!</a>
                 </div>
             </nav>
             <div class="container-xxl py-2 bg-dark hero-header mb-5">

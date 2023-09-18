@@ -46,7 +46,7 @@ class Authentication extends Controller
                 return redirect()->route('dashboard');
             } else if (Auth::user()->role == 'user') {
                 $request->session()->regenerate();
-                dd(Auth::user());
+
                 return redirect()->route('home');
             }
         } elseif (!Auth::attempt(["username" => $request->username, "password" => $request->password])) {
@@ -54,5 +54,15 @@ class Authentication extends Controller
                 'message' => 'Username / Password Salah!'
             ]);
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()->route('home');
     }
 }

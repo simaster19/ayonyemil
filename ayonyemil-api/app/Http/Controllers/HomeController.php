@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
-        $products = Product::paginate(25);
+        $products = Product::latest()->paginate(25);
 
         return response()->json([
             'status' => 200,

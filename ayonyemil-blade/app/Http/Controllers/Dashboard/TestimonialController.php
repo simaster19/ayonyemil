@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Validator;
 
 class TestimonialController extends Controller
 {
+    public function index()
+    {
+
+
+        $testimonials = Testimonial::orderBy('created_at', 'desc')->get();
+
+
+        return view('Admin.Dashboard.Testimonial.index')->with([
+            'datas' => $testimonials
+        ]);
+    }
     public function store(Request $request)
     {
         $validators = Validator::make($request->all(), [
@@ -21,20 +32,14 @@ class TestimonialController extends Controller
 
 
         if ($validators->fails()) {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Pesan Error',
-                'data' => $validators->errors()
-            ], 401);
+            return back()->with(['error_message' => $validators->messages()]);
         }
 
         if (!$request->has('foto_customer')) {
             $testimonial = Testimonial::create($request->all());
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $testimonial
-            ], 200);
+            return redirect()->route('all_testimonial')->with([
+                'message' => 'Data Berhasil Ditambahkan!'
+            ]);
         } else {
 
             $foto_customer = $request->file('foto_customer');
@@ -48,11 +53,10 @@ class TestimonialController extends Controller
                 'catatan' => $request->catatan
             ]);
 
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $testimonial
-            ], 200);
+
+            return redirect()->route('all_testimonial')->with([
+                'message' => 'Data Berhasil Ditambahkan!'
+            ]);
         }
     }
 
@@ -69,11 +73,7 @@ class TestimonialController extends Controller
 
 
         if ($validators->fails()) {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Pesan Error',
-                'data' => $validators->errors()
-            ], 401);
+            return back()->with(['error_message' => $validators->messages()]);
         }
 
 
@@ -81,11 +81,9 @@ class TestimonialController extends Controller
 
         if (!$request->has('foto_customer')) {
             $testimonial->update($request->all());
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $testimonial
-            ], 200);
+            return redirect()->route('all_testimonial')->with([
+                'message' => 'Data Berhasil Diubah!'
+            ]);
         } else {
 
             $foto_customer = $request->file('foto_customer');
@@ -101,11 +99,9 @@ class TestimonialController extends Controller
                 'catatan' => $request->catatan
             ]);
 
-            return response()->json([
-                'status' => 200,
-                'message' => 'Succesfully',
-                'data' => $testimonial
-            ], 200);
+            return redirect()->route('all_testimonial')->with([
+                'message' => 'Data Berhasil Diubah!'
+            ]);
         }
     }
 
@@ -113,11 +109,9 @@ class TestimonialController extends Controller
     {
         $testimonial = Testimonial::findOrFail($id);
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Succesfully',
-            'data' => $testimonial
-        ], 200);
+        return [
+            'datas' => $testimonial
+        ];
     }
 
     public function destroy($id)
@@ -128,10 +122,8 @@ class TestimonialController extends Controller
 
         $testimonial->delete();
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Data Berhasil Dhapus',
-            'data' => NULL
-        ], 200);
+        return redirect()->route('all_testimonial')->with([
+            'message' => 'Data Berhasil Dihapus!'
+        ]);
     }
 }

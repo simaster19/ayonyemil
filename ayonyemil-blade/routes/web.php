@@ -40,20 +40,23 @@ Route::get('email/verify', [RegisterController::class, 'notice'])->name('verific
 // Route::get('email/resend', [Authentication::class, 'resend'])->name('verification.resend');
 
 Route::middleware(['auth', 'isAdmin', 'verified'])->prefix('admin')->group(function () {
-  Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
   //Dashboard
-
+  Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
   //Product
   Route::get('/product', [ProdukController::class, 'index'])->name('all_product');
   Route::post('/product', [ProdukController::class, 'store'])->name('simpan_produk');
   Route::match(['POST', 'PUT'], '/product/{id}', [ProdukController::class, 'update'])->name('update_produk');
-  Route::delete('/product/{id}', [ProdukController::class, 'destroy'])->name('delete_produk');
   Route::get('/product/{id}', [ProdukController::class, 'show'])->name('detail_produk');
+  Route::delete('/product/{id}', [ProdukController::class, 'destroy'])->name('delete_produk');
 
   //Testimonial
+  Route::get('/testimonial', [TestimonialController::class, 'index'])->name('all_testimonial');
   Route::post('/testimonial', [TestimonialController::class, 'store'])->name('simpan_testimonial');
   Route::match(['POST', 'PUT'], '/testimonial/{id}', [TestimonialController::class, 'update'])->name('update_testimonial');
   Route::delete('/testimonial/{id}', [TestimonialController::class, 'destroy'])->name('delete_testimonial');
   Route::get('/testimonial/{id}', [TestimonialController::class, 'show'])->name('detail_testimonial');
+
+  //Logout
+  Route::get('/logout', [Authentication::class, 'logout'])->name('logout');
 });
