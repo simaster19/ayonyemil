@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-  public function index() {
+  public function index()
+  {
     return view('Admin.register');
   }
 
-  public function register(Request $request) {
+  public function register(Request $request)
+  {
     $validators = Validator::make($request->all(), [
       'name' => 'required|max:50',
       'email' => 'required|unique:users,email',
@@ -40,7 +42,7 @@ class RegisterController extends Controller
 
       // $accessToken = $user->createToken('authToken')->plainTextToken;
 
-      return view('Layouts.register')->with([
+      return view('Admin.Dashboard.register')->with([
         'message' => 'Succesfully Register, Please Cek Email Anda untuk
         Verifikasi!'
       ]);
@@ -64,20 +66,19 @@ class RegisterController extends Controller
 
       // $accessToken = $user->createToken('authToken')->plainTextToken;
 
-      return view('Layouts.register')->with([
+      return view('Admin.Dashboard.register')->with([
         'message' => 'Succesfully Register, Please Cek Email Anda untuk
         Verifikasi!'
       ]);
     }
   }
 
-  public function verify(Request $request, $id) {
+  public function verify(Request $request, $id)
+  {
     if (!$request->hasValidSignature()) {
-      return response()->json([
-        'status' => 401,
-        'message' => 'Error Verify',
-        'data' => NULL
-      ], 401);
+      return view('Admin.Dashboard.register')->with([
+        'message' => 'Error Verify'
+      ]);
     }
 
     $user = User::findOrFail($id);
@@ -86,15 +87,14 @@ class RegisterController extends Controller
       $user->markEmailAsVerified();
     }
 
-    return redirect()->to('/');
+    return redirect()->route('login');
   }
 
-  public function notice() {
-    return response()->json([
-      'status' => 401,
+  public function notice()
+  {
+    return redirect()->route('login')->with([
       'message' => 'Anda belum melakukan Verifikasi email!',
-      'data' => NULL
-    ], 401);
+    ]);
   }
 
   // public function resend(Request $request)
