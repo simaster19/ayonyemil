@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Validator;
 class ProdukController extends Controller
 {
 
-  public function index() {
+  public function index()
+  {
 
 
 
@@ -25,7 +26,8 @@ class ProdukController extends Controller
   }
 
 
-  public function store(Request $request) {
+  public function store(Request $request)
+  {
     $validators = Validator::make($request->all(), [
       'kode_produk' => 'required',
       'nama_produk' => 'required',
@@ -51,10 +53,11 @@ class ProdukController extends Controller
     } else {
 
       $foto_produk = $request->file('foto_produk');
-      $foto_produk->storeAs('public/images/product/', $foto_produk->hashName());
+      $foto_produk->storeAs('public/images/product/', ['disk' => 'public'], $foto_produk->hashName());
+
 
       $product = Product::create([
-              'kode_produk' => $request->kode_produk,
+        'kode_produk' => $request->kode_produk,
         'nama_produk' => $request->nama_produk,
         'jenis_produk' => $request->jenis_produk,
         'foto_produk' => $foto_produk->hashName(),
@@ -71,11 +74,12 @@ class ProdukController extends Controller
     }
   }
 
-  public function update(Request $request, $id) {
+  public function update(Request $request, $id)
+  {
 
 
     $validators = Validator::make($request->all(), [
-            'kode_produk' => 'required',
+      'kode_produk' => 'required',
       'nama_produk' => 'required',
       'jenis_produk' => 'required',
       'jumlah_produk' => 'required|numeric',
@@ -106,7 +110,7 @@ class ProdukController extends Controller
       Storage::delete('public/images/product/' . basename($product->foto_produk));
 
       $product->update([
-              'kode_produk' => $request->kode_produk,
+        'kode_produk' => $request->kode_produk,
         'nama_produk' => $request->nama_produk,
         'jenis_produk' => $request->jenis_produk,
         'foto_produk' => $foto_produk->hashName(),
@@ -123,7 +127,8 @@ class ProdukController extends Controller
     }
   }
 
-  public function show($id) {
+  public function show($id)
+  {
     $product = Product::findOrFail($id);
 
     return [
@@ -131,7 +136,8 @@ class ProdukController extends Controller
     ];
   }
 
-  public function destroy($id) {
+  public function destroy($id)
+  {
     $product = Product::findOrFail($id);
 
     Storage::delete('public/images/product/' . basename($product->foto_produk));
